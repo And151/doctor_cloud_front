@@ -4,6 +4,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
+import {Location} from "@angular/common";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class AuthService
@@ -73,10 +75,10 @@ export class AuthService
         {
             return throwError('User is already logged in.');
         }
+        const url = Location.joinWithSlash(environment.origin || '', 'auth/login');
 
-        return this._httpClient.post('api/auth/sign-in', credentials).pipe(
+        return this._httpClient.post(url, credentials).pipe(
             switchMap((response: any) => {
-
                 // Store the access token in the local storage
                 this.accessToken = response.accessToken;
 
@@ -97,8 +99,9 @@ export class AuthService
      */
     signInUsingToken(): Observable<any>
     {
+        const url = Location.joinWithSlash(environment.origin || '', 'auth/refresh-access-token');
         // Renew token
-        return this._httpClient.post('api/auth/refresh-access-token', {
+        return this._httpClient.post(url, {
             accessToken: this.accessToken
         }).pipe(
             catchError(() =>
