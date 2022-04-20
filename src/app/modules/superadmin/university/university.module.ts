@@ -12,11 +12,15 @@ import {MatTableModule} from "@angular/material/table";
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {UniversityResolver} from "./university.resolver";
+import { UniversityModalComponent } from './university-modal/university-modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
   declarations: [
-    UniversityComponent
+    UniversityComponent,
+    UniversityModalComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,9 @@ import {UniversityResolver} from "./university.resolver";
     MatDividerModule,
     MatTableModule,
     MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [
     UniversityService,

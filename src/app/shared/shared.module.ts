@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
     imports: [
@@ -11,7 +13,8 @@ import {MatButtonModule} from "@angular/material/button";
         FormsModule,
         ReactiveFormsModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        MatDialogModule
     ],
     exports: [
         CommonModule,
@@ -20,7 +23,8 @@ import {MatButtonModule} from "@angular/material/button";
         SearchBoxComponent
     ],
     declarations: [
-      SearchBoxComponent
+      SearchBoxComponent,
+      ConfirmDialogComponent
     ]
 })
 export class SharedModule

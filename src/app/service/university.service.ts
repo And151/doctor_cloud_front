@@ -4,7 +4,7 @@ import {Location} from "@angular/common";
 import {environment} from "../../environments/environment";
 import {tap} from "rxjs/operators";
 import {BehaviorSubject} from "rxjs";
-import {IUniversity} from "../models/university.model";
+import {ICUUniversityDto, IUniversity} from "../models/university.model";
 
 @Injectable()
 export class UniversityService {
@@ -15,14 +15,24 @@ export class UniversityService {
   ) {
   }
 
-  create() {
+  create(universityDto: ICUUniversityDto) {
+    const url = Location.joinWithSlash(
+      environment.origin || '', 'university'
+    );
 
+    return this._httpClient.post<IUniversity>(url, universityDto).pipe(
+      tap(data => {
+        const universities = this.university$.value;
+        universities.push(data);
+        this.university$.next(universities);
+      })
+    );
   }
 
   getAll() {
     const url = Location.joinWithSlash(
       environment.origin || '', 'university'
-    )
+    );
 
     return this._httpClient.get<IUniversity[]>(url).pipe(
       tap(data => {
@@ -31,16 +41,37 @@ export class UniversityService {
     )
   }
 
-  getById() {
+  getById(id: number) {
+    const url = Location.joinWithSlash(
+      environment.origin || '', 'university/' + id
+    );
 
+    return this._httpClient.get(url);
   }
 
-  update() {
+  update(id: number, universityDto: ICUUniversityDto) {
+    const url = Location.joinWithSlash(
+      environment.origin || '', 'university/' + id
+    );
 
+    return this._httpClient.patch(url, universityDto).pipe(
+      tap(_ => {
+        this.getAll().subscribe();
+      })
+    );
   }
 
-  delete() {
+  delete(id: number) {
+    const url = Location.joinWithSlash(
+      environment.origin || '', 'university/' + id
+    );
 
+    return this._httpClient.delete(url).pipe(
+      tap(_ => {
+        const universities = this.university$.value.filter(item => item.id !== id);
+        this.university$.next(universities);
+      })
+    );
   }
 
 }

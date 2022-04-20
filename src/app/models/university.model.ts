@@ -6,3 +6,9 @@ export interface IUniversity {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ICUUniversityDto {
+  name?: string;
+  city?: string;
+  degree?: string;
+}
