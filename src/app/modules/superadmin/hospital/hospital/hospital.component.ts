@@ -13,28 +13,30 @@ import {actionType} from "../../../../shared/search-box/search-box.component";
   templateUrl: './hospital.component.html',
   styleUrls: ['./hospital.component.scss']
 })
-export class HospitalComponent implements OnInit , OnChanges, AfterViewInit{
+export class HospitalComponent implements OnInit, OnChanges, AfterViewInit {
 
   hospitalData: IHospital[];
-  displayedColumns: string[] = [ "id", "name", "address", "longitude","latitude","createdAt","updatedAt"];
-  hospitalName:string;
+  displayedColumns: string[] = ["id", "name", "address", "longitude", "latitude", "createdAt", "updatedAt"];
+  hospitalName: string;
   hospitalAddress: string;
   hospitalOwner: string;
-  dataSource:MatTableDataSource<IHospital> = new MatTableDataSource<IHospital>();
+  dataSource: MatTableDataSource<IHospital> = new MatTableDataSource<IHospital>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(
-      private route: ActivatedRoute,
-      private _hospitalService: HospitalsService,
-      private _dialog: MatDialog
-  ) { }
+    private route: ActivatedRoute,
+    private _hospitalService: HospitalsService,
+    private _dialog: MatDialog
+  ) {
+  }
 
   ngOnInit(): void {
     this._hospitalService.hospitals$.subscribe(
-        data => {
-          this.hospitalData = data;
-          this.dataSource.data = this.hospitalData;
-        }
+      data => {
+        this.hospitalData = data;
+        this.dataSource.data = this.hospitalData;
+      }
     );
   }
 
@@ -55,9 +57,11 @@ export class HospitalComponent implements OnInit , OnChanges, AfterViewInit{
   }
 
   search() {
+    const nameRegex = new RegExp(`.*${this.hospitalName?.trim().toLowerCase() || ''}.*`, 'gm');
+    const addressRegex = new RegExp(`.*${this.hospitalAddress?.trim().toLowerCase() || ''}.*`, 'gm');
     this.dataSource.data = this.hospitalData.filter(item =>
-        this.hospitalName? this.hospitalName === item.name :
-            this.hospitalAddress? this.hospitalAddress === item.address: null);
+      this.hospitalName ? nameRegex.exec(item.name.toLowerCase()) :
+        this.hospitalAddress ? addressRegex.exec(item.address.toLowerCase()) : null);
   }
 
   reset() {
