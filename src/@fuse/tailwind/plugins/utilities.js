@@ -36,7 +36,7 @@ const utilities = plugin(({
             },
             '.bg-card'        : {
                 '--tw-bg-opacity': '1 !important',
-                backgroundColor  : 'rgba(var(--fuse-bg-card-rgb), var(--tw-bg-opacity)) !important'
+                backgroundColor  : '#F9F9F9'
             },
             '.bg-default'     : {
                 '--tw-bg-opacity': '1 !important',

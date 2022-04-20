@@ -1,0 +1,25 @@
+<div class="create flex flex-col gap-10 justify-end">
+    <div>
+        <p class="font-medium">Add new Hospital</p>
+        <mat-divider class="my-2"></mat-divider>
+    </div>
+    <form [formGroup]="newHospital" class="flex flex-col gap-15">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input required matInput placeholder="Hospital name" value="Sushi" formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Address</mat-label>
+            <input matInput required placeholder="Somewhere street" value="Sushi" formControlName="address">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Latitude</mat-label>
+            <input matInput required placeholder="12345678" value="Sushi" formControlName="latitude">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Longitude</mat-label>
+            <input matInput required placeholder="12345678" value="Sushi" formControlName="longitude">
+        </mat-form-field>
+    </form>
+    <button mat-flat-button color="primary" (click)="create()" [disabled]="!newHospital.valid">Create</button>
+</div>

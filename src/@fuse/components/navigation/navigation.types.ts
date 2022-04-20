@@ -1,7 +1,10 @@
 import { IsActiveMatchOptions } from '@angular/router';
+import {UserRole, UserTypes} from "../../../app/core/user/user.types";
 
 export interface FuseNavigationItem
 {
+    roleId?: UserRole[];
+    userType?: UserTypes;
     id?: string;
     title?: string;
     subtitle?: string;
