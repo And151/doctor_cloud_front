@@ -92,9 +92,9 @@
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    min-height: 40px;
-    max-height: 40px;
+    height: 48px;
+    min-height: 48px;
+    max-height: 48px;
     line-height: 1 !important;
 
     .mat-button-wrapper {
@@ -137,7 +137,7 @@
 .mat-raised-button,
 .mat-stroked-button {
     padding: 0 20px !important;
-    border-radius: 9999px !important;
+
 }
 
 /* Target all buttons */
@@ -503,16 +503,16 @@
     }
 
     /* Adjustments for mat-label */
-    &.mat-form-field-has-label {
+   /* &.mat-form-field-has-label {
 
         .mat-form-field-wrapper {
             margin-top: 24px;
         }
-    }
+    }*/
 
     /* Default style tweaks and enhancements */
     .mat-form-field-wrapper {
-        margin-bottom: 16px;
+        /*margin-bottom: 16px;*/
         padding-bottom: 0;
 
         .mat-form-field-flex {
@@ -577,8 +577,8 @@
                 .mat-icon-button {
                     width: 40px;
                     min-width: 40px;
-                    height: 40px;
-                    min-height: 40px;
+                    height: 48px;
+                    min-height: 48px;
                 }
 
                 .mat-icon,

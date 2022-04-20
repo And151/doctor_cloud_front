@@ -1,0 +1,90 @@
+<div class="p-5 flex flex-col gap-10 w-full" id="hospital">
+    <div class="flex flex-col max-h-full gap-10">
+        <p class="title">Hospital List</p>
+        <div class="search-box flex flex-row items-center gap-3 mt-5">
+            <div class="flex flex-row gap-3 w-full">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Hospital</mat-label>
+                    <input  matInput placeholder="Hospital name" [(ngModel)]="hospitalName">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Address</mat-label>
+                    <input matInput placeholder="Somewhere street" [(ngModel)]="hospitalAddress">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Owner</mat-label>
+                    <input matInput placeholder="Owner name" [(ngModel)]="hospitalOwner">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Category</mat-label>
+                    <select matNativeControl>
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </mat-form-field>
+
+            </div>
+        </div>
+        <div>
+           <app-search-box
+                   (action)="actionChange($event)"
+           ></app-search-box>
+        </div>
+    </div>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="w-full">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> Id</th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef> Address</th>
+                    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="longitude">
+                    <th mat-header-cell *matHeaderCellDef> Longitude</th>
+                    <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="latitude">
+                    <th mat-header-cell *matHeaderCellDef> Latitude</th>
+                    <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef> Created At</th>
+                    <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="updatedAt">
+                    <th mat-header-cell *matHeaderCellDef> Updated At</th>
+                    <td mat-cell *matCellDef="let element"> {{element.updatedAt}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

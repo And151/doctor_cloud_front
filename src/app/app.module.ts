@@ -12,6 +12,7 @@ import { mockApiServices } from 'app/mock-api';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -35,6 +36,7 @@ const routerConfig: ExtraOptions = {
         // Core module of your application
         CoreModule,
 
+        MatSnackBarModule,
         // Layout module of your application
         LayoutModule,
 

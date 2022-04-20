@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
-import { Navigation } from 'app/core/navigation/navigation.types';
-import { NavigationService } from 'app/core/navigation/navigation.service';
-import { User } from 'app/core/user/user.types';
-import { UserService } from 'app/core/user/user.service';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
+import {FuseNavigationService, FuseVerticalNavigationComponent} from '@fuse/components/navigation';
+import {Navigation} from 'app/core/navigation/navigation.types';
+import {NavigationService} from 'app/core/navigation/navigation.service';
+import {User, UserRole, UserTypes} from 'app/core/user/user.types';
+import {UserService} from 'app/core/user/user.service';
 
 @Component({
     selector     : 'classy-layout',
@@ -19,6 +19,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
     isScreenSmall: boolean;
     navigation: Navigation;
     user: User;
+    //user = {id: 2, first_name: "inesa", last_name: "Toroyan", roleId: UserRole.SUPER_ADMIN, type: UserTypes.DOCTOR, email: "inesa@gmail.com", phone: "23456"}
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -56,12 +58,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Subscribe to navigation data
-        this._navigationService.navigation$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((navigation: Navigation) => {
-                this.navigation = navigation;
-            });
 
         // Subscribe to the user service
         this._userService.user$
@@ -69,6 +65,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             .subscribe((user: User) => {
                 this.user = user;
             });
+
+        console.log(this.user)
+        this.navigation = this._navigationService.getNavigation(UserTypes.DOCTOR, UserRole.SUPER_ADMIN);
 
         // Subscribe to media changes
         this._fuseMediaWatcherService.onMediaChange$
