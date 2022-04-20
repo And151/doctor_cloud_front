@@ -1,0 +1,80 @@
+<div class="p-5 flex flex-col gap-10 w-full" id="university">
+    <div class="flex flex-col max-h-full gap-10">
+        <p class="title">University List</p>
+        <div class="search-box flex flex-row items-center gap-3 mt-5">
+            <div class="flex flex-row gap-3 w-full">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>University</mat-label>
+                    <input matInput placeholder="Hospital name" [(ngModel)]="universityName">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>City</mat-label>
+                    <input matInput placeholder="Hospital name" [(ngModel)]="cityName">
+                </mat-form-field>
+            </div>
+        </div>
+        <div>
+            <app-search-box
+                    (action)="actionChange($event)"
+                    [add]="'University'"
+            ></app-search-box>
+        </div>
+    </div>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="w-full">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> Id</th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="city">
+                    <th mat-header-cell *matHeaderCellDef> Address</th>
+                    <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="degree">
+                    <th mat-header-cell *matHeaderCellDef> Degree</th>
+                    <td mat-cell *matCellDef="let element"> {{element.degree}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef> Created At</th>
+                    <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="updatedAt">
+                    <th mat-header-cell *matHeaderCellDef> Updated At</th>
+                    <td mat-cell *matCellDef="let element"> {{element.updatedAt}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-stroked-button class="action-btn" (click)="edit(element.id)">Edit</button>
+                        <button mat-stroked-button class="action-btn" (click)="delete(element.id)">Delete</button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+    </div>
+</div>
