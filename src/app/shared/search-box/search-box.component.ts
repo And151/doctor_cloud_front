@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 export enum actionType {
   SEARCH = "SEARCH",
@@ -16,6 +16,7 @@ export enum actionType {
 export class SearchBoxComponent implements OnInit {
 
   @Output() action = new EventEmitter();
+  @Input() add: string;
   constructor() { }
 
   ngOnInit(): void {
