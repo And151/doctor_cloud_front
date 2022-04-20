@@ -25,4 +25,11 @@ export class DoctorService {
         tap(item => this.doctors$.next(item))
     );
   }
+
+  createDoctor(data) {
+    const url = Location.joinWithSlash(
+        environment.origin || '', '/user'
+    )
+    return this._http.post(url, data);
+  }
 }

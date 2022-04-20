@@ -1,0 +1,33 @@
+<div class="create flex flex-col gap-10 justify-end">
+    <div>
+        <p class="font-medium">Add new Hospital</p>
+        <mat-divider class="my-2"></mat-divider>
+    </div>
+    <form [formGroup]="newDoctor" class="flex flex-col gap-15">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input required matInput placeholder="First name" formControlName="first_name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input required matInput placeholder="Last name" formControlName="last_name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput required placeholder="someone@gmail.com" formControlName="email">
+            <mat-error (error)="newDoctor.get('email').hasError('email')">Not a valid email!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Phone</mat-label>
+            <input matInput required placeholder="12345678" formControlName="phone">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput required placeholder="Some secure password" type="password" formControlName="password">
+            <mat-error (error)="newDoctor.get('password').hasError('maxLength')">The minimum length must be 8 characters!</mat-error>
+        </mat-form-field>
+
+    </form>
+    <button mat-flat-button color="primary" (click)="change()" [disabled]="!newDoctor.valid">{{type}}</button>
+</div>
