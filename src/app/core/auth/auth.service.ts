@@ -39,6 +39,13 @@ export class AuthService {
         return localStorage.getItem('accessToken') ?? '';
     }
 
+    /**
+     * Getter for authenticated boolean
+     */
+    get isAuthenticated(): boolean {
+        return this._authenticated;
+    }
+
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
@@ -105,7 +112,9 @@ export class AuthService {
             catchError(() =>
 
                 // Return false
-                of(false)
+                of({
+                    allowed: false
+                })
             ),
             switchMap((response: any) => {
 

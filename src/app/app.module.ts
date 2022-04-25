@@ -21,32 +21,32 @@ const routerConfig: ExtraOptions = {
 };
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports     : [
-        BrowserModule,
-        BrowserAnimationsModule,
-        RouterModule.forRoot(appRoutes, routerConfig),
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes, routerConfig),
 
-        // Fuse, FuseConfig & FuseMockAPI
-        FuseModule,
-        FuseConfigModule.forRoot(appConfig),
-        FuseMockApiModule.forRoot(mockApiServices),
+    // Fuse, FuseConfig & FuseMockAPI
+    FuseModule,
+    FuseConfigModule.forRoot(appConfig),
+    FuseMockApiModule.forRoot(mockApiServices),
 
-        // Core module of your application
-        CoreModule,
+    // Core module of your application
+    CoreModule,
 
-        MatSnackBarModule,
-        // Layout module of your application
-        LayoutModule,
+    MatSnackBarModule,
+    // Layout module of your application
+    LayoutModule,
 
-        // 3rd party modules that require global configuration via forRoot
-        MarkdownModule.forRoot({})
-    ],
-    bootstrap   : [
-        AppComponent
-    ]
+    // 3rd party modules that require global configuration via forRoot
+    MarkdownModule.forRoot({})
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule
 {

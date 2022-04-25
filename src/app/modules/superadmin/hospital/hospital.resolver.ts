@@ -14,7 +14,7 @@ export class HospitalResolver implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
       return forkJoin([
-          this._hospitalService.getHospitals()
+          this._hospitalService.getHospitals(true)
       ]);
     }
 }
