@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{data ? 'Edit' : 'Add'}} Hospital</h1>
+<div mat-dialog-content>
+    <form [formGroup]="hospital" class="flex flex-col">
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" formControlName="address">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Latitude</mat-label>
+            <input matInput type="text" formControlName="latitude">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Longitude</mat-label>
+            <input matInput type="text" formControlName="longitude">
+        </mat-form-field>
+    </form>
+</div>
+<div class="flex gap-2">
+    <button mat-flat-button class="w-full primary-outlined" [mat-dialog-close]="{success: false}">Cancel</button>
+    <button mat-flat-button color="primary" class="w-full" (click)="save()">{{data ? 'Update' : 'Save'}}</button>
+</div>

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{data.first_name + " " + data.last_name}}'s Hospitals</h1>
+<mat-selection-list #hospitalsList>
+    <mat-list-option *ngFor="let hospital of hospitals" [value]="hospital.id">
+        {{hospital.name}}
+    </mat-list-option>
+</mat-selection-list>
+
+<div class="flex gap-2">
+    <button mat-flat-button class="primary-outlined w-full">Cancel</button>
+    <button mat-flat-button class="primary-outlined w-full" (click)="removeHospitals(hospitalsList.selectedOptions.selected)">Remove hospitals</button>
+    <button mat-flat-button color="primary" class="w-full">Attach a hospital</button>
+</div>

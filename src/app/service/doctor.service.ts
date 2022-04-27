@@ -32,4 +32,20 @@ export class DoctorService {
     )
     return this._http.post(url, data);
   }
+
+  deleteDoctor(id: number) {
+    const url = Location.joinWithSlash(
+        environment.origin || '', `/user/${id}`
+    )
+
+    return this._http.delete(url);
+  }
+
+  removeDoctorFromHospitals(id, data: number[]) {
+    const url = Location.joinWithSlash(
+        environment.origin || '', `/hospital-doctors/${id}`
+    )
+    const req = {"hospitalIds": data};
+    return this._http.delete(url, {body : req} );
+  }
 }

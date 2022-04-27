@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {IUser} from "../../../models/user.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -7,14 +7,21 @@ import {DoctorService} from "../../../service/doctor.service";
 import {actionType} from "../../../shared/search-box/search-box.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AddDoctorComponent} from "./add-doctor/add-doctor.component";
+import {EditHospitalComponent} from "../../superadmin/hospital/edit-hospital/edit-hospital.component";
+import {FuseSplashScreenService} from "../../../../@fuse/services/splash-screen";
+import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
+import {Subscription} from "rxjs";
+import {
+  EditDoctorHospitalsComponent
+} from "../../superadmin/hospital/edit-doctor-hospitals/edit-doctor-hospitals.component";
 
 @Component({
   selector: 'app-doctor',
   templateUrl: './doctor.component.html',
   styleUrls: ['./doctor.component.scss']
 })
-export class DoctorComponent implements OnInit , OnChanges, AfterViewInit{
-  displayedColumns: string[] = ["id", "first_name", "last_name", "email", "phone", "type", "roleId", "createdAt", "updatedAt", "edit"];
+export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDestroy{
+  displayedColumns: string[] = ["id", "first_name", "last_name", "email", "phone", "type", "roleId", "createdAt", "updatedAt", "actions"];
   dataSource: MatTableDataSource<IUser> = new MatTableDataSource<IUser>();
   doctorName: string;
   doctorSurname: string;
@@ -22,21 +29,27 @@ export class DoctorComponent implements OnInit , OnChanges, AfterViewInit{
   doctorData: IUser[]=[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  private doctorSubscription: Subscription;
 
   constructor(
       private route: ActivatedRoute,
       private _doctorService: DoctorService,
-      private _dialog: MatDialog
+      private _dialog: MatDialog,
+      private _splashScreenService: FuseSplashScreenService
 
   ) { }
 
 
 
   ngOnInit(): void {
-    this._doctorService.doctors$.subscribe(data => {
+    this.doctorSubscription = this._doctorService.doctors$.subscribe(data => {
       this.doctorData = data;
       this.dataSource.data = this.doctorData;
     })
+  }
+
+  ngOnDestroy() {
+    this.doctorSubscription.unsubscribe();
   }
 
 
@@ -88,5 +101,69 @@ export class DoctorComponent implements OnInit , OnChanges, AfterViewInit{
       maxWidth: '650px',
       width: '100%'
     })
+  }
+
+    edit(id) {
+      this._dialog.open(EditHospitalComponent, {
+        maxWidth: '650px',
+        width: '100%',
+        data: this.dataSource.data.find(item => item.id === id)
+      })
+          .afterClosed()
+          .subscribe(
+              res => {
+                if (res?.success) {
+                 /* this._splashScreenService.show();
+                  this._doctorService.edi(id, res.data).subscribe(_ => {
+                    this._doctorService.getHospitals().subscribe();
+                    this._splashScreenService.hide();
+                  });*/
+                }
+              }
+          )
+    }
+
+  delete(id) {
+    this._dialog.open(ConfirmDialogComponent, {
+      maxWidth: '650px',
+      width: '100%',
+      data: {
+        title: 'Attention!',
+        content: 'Are you sure you want to remove the doctor?',
+        yesButton: 'Yes'
+      }
+    })
+        .afterClosed()
+        .subscribe(
+            confirmed => {
+              if (confirmed) {
+                this._splashScreenService.show();
+                this._doctorService.deleteDoctor(id).subscribe(_ => {
+                  this._doctorService.getDoctors().subscribe();
+                  this._splashScreenService.hide();
+                });
+              }
+            }
+        )
+  }
+
+  modifyHospitals(id) {
+    this._dialog.open(EditDoctorHospitalsComponent, {
+      maxWidth: '650px',
+      width: '100%',
+      data: this.dataSource.data.find(item => item.id === id)
+    })
+        .afterClosed()
+        .subscribe(
+            res => {
+              if (res?.success) {
+                /* this._splashScreenService.show();
+                 this._doctorService.edi(id, res.data).subscribe(_ => {
+                   this._doctorService.getHospitals().subscribe();
+                   this._splashScreenService.hide();
+                 });*/
+              }
+            }
+        )
   }
 }

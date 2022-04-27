@@ -1,3 +1,5 @@
+import {IHospital} from "./hospitals.model";
+
 export interface IUser {
     id: number;
     first_name: string,
@@ -7,5 +9,6 @@ export interface IUser {
     type: string,
     createdAt: string,
     updatedAt: string,
-    roleId: number
+    roleId: number,
+    hospital?: IHospital[];
 }

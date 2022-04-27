@@ -15,13 +15,19 @@ import {MatIconModule} from "@angular/material/icon";
 import { AddHospitalComponent } from './add-hospital/add-hospital.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {SharedModule} from "../../../shared/shared.module";
+import { EditHospitalComponent } from './edit-hospital/edit-hospital.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { EditDoctorHospitalsComponent } from './edit-doctor-hospitals/edit-doctor-hospitals.component';
+import {MatListModule} from "@angular/material/list";
 
 
 
 @NgModule({
   declarations: [
     HospitalComponent,
-    AddHospitalComponent
+    AddHospitalComponent,
+    EditHospitalComponent,
+    EditDoctorHospitalsComponent
   ],
     imports: [
         CommonModule,
@@ -37,7 +43,9 @@ import {SharedModule} from "../../../shared/shared.module";
         FormsModule,
         MatIconModule,
         ReactiveFormsModule,
-        SharedModule
+        SharedModule,
+        MatDialogModule,
+        MatListModule
     ],
     providers: [
         MatSnackBarModule
