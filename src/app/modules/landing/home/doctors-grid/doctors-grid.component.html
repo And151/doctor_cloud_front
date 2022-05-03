@@ -1,9 +1,9 @@
-<section class="actions">
+<section class="actions" *ngIf="doctors.length; else noData">
     <button *ngIf="hospitalId" mat-stroked-button class="mb-5" (click)="reset()">Reset</button>
 
     <main>
         <figure *ngFor="let doctor of doctors" (click)="seeDoctorInfo(doctor)"
-                style="background-image: url(https://static.vecteezy.com/system/resources/previews/000/354/925/large_2x/vector-hospital-icon.jpg)">
+                [style.background-image]="doctor.image_url">
             <figcaption>{{doctor.first_name}} {{doctor.last_name}}
                 <!--        <h3>{{hospital.name}}</h3>-->
                 <!--        <h5>{{hospital.address}}</h5>-->
@@ -11,3 +11,9 @@
         </figure>
     </main>
 </section>
+
+<ng-template #noData>
+    <div class="m-auto">
+        <p class="font-medium">No doctors are registered in this hospital.</p>
+    </div>
+</ng-template>

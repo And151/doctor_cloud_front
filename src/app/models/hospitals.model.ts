@@ -1,12 +1,11 @@
 export interface IHospital {
-    id: number;
-    name: string;
-    address: string;
-    image_url: string;
-    longitude: string;
-    latitude: string;
-    imageUrl: string;
-    createdAt: string;
+    id: number,
+    name: string,
+    address: string,
+    imageUrl: string,
+    longitude: string,
+    latitude: string,
+    createdAt: string,
     updatedAt: string
 }
 
