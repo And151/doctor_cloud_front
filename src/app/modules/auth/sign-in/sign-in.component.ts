@@ -5,7 +5,7 @@ import {fuseAnimations} from '@fuse/animations';
 import {FuseAlertType} from '@fuse/components/alert';
 import {AuthService} from 'app/core/auth/auth.service';
 import {UserService} from "../../../core/user/user.service";
-import {User, UserTypes} from "../../../core/user/user.types";
+import {User, UserRole, UserTypes} from "../../../core/user/user.types";
 
 @Component({
   selector: 'auth-sign-in',
@@ -80,7 +80,7 @@ export class AuthSignInComponent implements OnInit {
           // to the correct page after a successful sign in. This way, that url can be set via
           // routing file and we don't have to touch here.
           const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') ||
-          res.user.type === UserTypes.USER ? '' : 'overview';
+          (res.user.type === UserTypes.USER && res.user.roleId === UserRole.USER) ? '' : 'overview';
 
           // Navigate to the redirect url
           this._router.navigateByUrl(redirectURL);
