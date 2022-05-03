@@ -21,6 +21,7 @@ main {
     border-radius: 1rem;
     transition: all 100ms ease-out;
     position: relative;
+    cursor: pointer;
 
     &:hover {
       box-shadow: 0 16px 16px -4px rgba(#000, .3);

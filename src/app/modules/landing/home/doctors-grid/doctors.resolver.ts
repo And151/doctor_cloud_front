@@ -10,12 +10,17 @@ import {DoctorService} from "../../../../service/doctor.service";
 export class DoctorsResolver implements Resolve<any> {
 
     constructor(
-        private _doctorService: DoctorService
+        private _doctorService: DoctorService,
     ) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-        return this._doctorService.getDoctors();
+        const hospitalId = route.queryParams["hospitalId"];
+        if (hospitalId) {
+            return this._doctorService.getHospitalDoctors(hospitalId);
+        } else {
+            return this._doctorService.getDoctors();
+        }
     }
 
 }

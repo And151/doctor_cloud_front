@@ -9,8 +9,10 @@
             </article>
             <article id="reference">
                 <div *ngIf="isAuthenticated; else signIn">
-                    <a *ngIf="user.roleId !== userRoles.USER; else signOut"
-                       [routerLink]="user.roleId === userRoles.SUPER_ADMIN ? 'overview' : 'doctors'" rel="noopener">
+                    <a *ngIf="user?.type !== userTypes.USER; else signOut"
+                       [routerLink]="user.roleId === userRoles.SUPER_ADMIN ? 'overview' :
+                                        user.roleId === userRoles.ADMIN ? 'doctors' :
+                                        'appointments'" rel="noopener">
                         <button mat-stroked-button>Admin</button>
                     </a>
                     <ng-template #signOut>

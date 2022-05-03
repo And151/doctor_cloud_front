@@ -25,6 +25,7 @@ export class NavigationService {
                 type: "basic",
             },
             {
+                roleId: [UserRole.USER],
                 icon: "heroicons_outline:calendar",
                 id: "appointments",
                 link: "/appointments",

@@ -67,13 +67,20 @@ export class HospitalComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   search() {
     const nameRegex = new RegExp(`.*${this.hospitalName?.trim().toLowerCase() || ''}.*`, 'gm');
     const addressRegex = new RegExp(`.*${this.hospitalAddress?.trim().toLowerCase() || ''}.*`, 'gm');
-    this.dataSource.data = this.hospitalData.filter(item =>
-      this.hospitalName ? nameRegex.exec(item.name.toLowerCase()) :
-        this.hospitalAddress ? addressRegex.exec(item.address.toLowerCase()) : null);
+    let data = [...this.hospitalData];
+    if (this.hospitalName) {
+      data = data.filter(item => nameRegex.test(item.name.toLowerCase()))
+    }
+    if (this.hospitalAddress) {
+      data = data.filter(item => addressRegex.test(item.address.toLowerCase()));
+    }
+    this.dataSource.data = data;
   }
 
   reset() {
-    this.dataSource.data = this.hospitalData;
+    this.dataSource.data = [...this.hospitalData];
+    this.hospitalAddress = '';
+    this.hospitalName = '';
   }
 
   addHospital() {
@@ -103,18 +110,18 @@ export class HospitalComponent implements OnInit, OnChanges, AfterViewInit, OnDe
       width: '100%',
       data: this.dataSource.data.find(item => item.id === id)
     })
-        .afterClosed()
-        .subscribe(
-            res => {
-              if (res?.success) {
-                this._splashScreenService.show();
-                this._hospitalService.editHospital(id, res.data).subscribe(_ => {
-                  this._hospitalService.getHospitals().subscribe();
-                  this._splashScreenService.hide();
-                });
-              }
-            }
-        )
+      .afterClosed()
+      .subscribe(
+        res => {
+          if (res?.success) {
+            this._splashScreenService.show();
+            this._hospitalService.editHospital(id, res.data).subscribe(_ => {
+              this._hospitalService.getHospitals().subscribe();
+              this._splashScreenService.hide();
+            });
+          }
+        }
+      )
   }
 
   delete(id) {
@@ -127,17 +134,17 @@ export class HospitalComponent implements OnInit, OnChanges, AfterViewInit, OnDe
         yesButton: 'Yes'
       }
     })
-        .afterClosed()
-        .subscribe(
-            confirmed => {
-              if (confirmed) {
-                this._splashScreenService.show();
-                this._hospitalService.deleteHospital(id).subscribe(_ => {
-                  this._hospitalService.getHospitals().subscribe();
-                  this._splashScreenService.hide();
-                });
-              }
-            }
-        )
+      .afterClosed()
+      .subscribe(
+        confirmed => {
+          if (confirmed) {
+            this._splashScreenService.show();
+            this._hospitalService.deleteHospital(id).subscribe(_ => {
+              this._hospitalService.getHospitals().subscribe();
+              this._splashScreenService.hide();
+            });
+          }
+        }
+      )
   }
 }

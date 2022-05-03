@@ -24,8 +24,8 @@ export class AddDoctorComponent implements OnInit {
   }
 
   create(e) {
-    if(e.valid) {
-      this._doctorService.createDoctor(e.getRawValue()).subscribe(data => {
+    if(e) {
+      this._doctorService.createDoctor(e).subscribe(data => {
         this._snack.open("successfully created", "", {
           duration: 3000,
           verticalPosition: 'top',

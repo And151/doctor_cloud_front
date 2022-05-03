@@ -22,6 +22,7 @@ export class UniversityComponent implements AfterViewInit {
   displayedColumns = ['id', 'name', 'city', 'degree', 'createdAt', 'updatedAt', 'actions'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  private initialData: IUniversity[];
 
   constructor(
     private _universityService: UniversityService,
@@ -32,6 +33,7 @@ export class UniversityComponent implements AfterViewInit {
     this.dataSource = new MatTableDataSource(this.university);
     this._universityService.university$.subscribe(data => {
       this.dataSource.data = data;
+      this.initialData = data;
     });
   }
 
@@ -57,9 +59,14 @@ export class UniversityComponent implements AfterViewInit {
     this._splashScreenService.show();
     const nameRegex = new RegExp(`.*${this.universityName?.trim().toLowerCase() || ''}.*`, 'gm');
     const cityRegex = new RegExp(`.*${this.cityName?.trim().toLowerCase() || ''}.*`, 'gm');
-    this.dataSource.data = this.dataSource.data.filter(item =>
-      this.universityName ? nameRegex.exec(item.name.toLowerCase()) :
-        this.cityName ? cityRegex.exec(item.city.toLowerCase()) : null);
+    let data = [...this.initialData];
+    if (this.universityName) {
+      data = data.filter(item => nameRegex.test(item.name.toLowerCase()));
+    }
+    if (this.cityName) {
+      data = data.filter(item => cityRegex.test(item.city.toLowerCase()));
+    }
+    this.dataSource.data = data;
     this._splashScreenService.hide();
   }
 
@@ -82,10 +89,7 @@ export class UniversityComponent implements AfterViewInit {
   }
 
   private reset() {
-    this._splashScreenService.show();
-    this._universityService.getAll().subscribe(_ => {
-      this._splashScreenService.hide();
-    });
+    this.dataSource.data = this.initialData;
     this.universityName = null;
     this.cityName = null;
   }

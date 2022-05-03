@@ -64,7 +64,7 @@ export const appRoutes: Route[] = [
     component: LayoutComponent,
     data: {
       layout: 'empty',
-      roles: [UserRole.SUPER_ADMIN, UserRole.ADMIN]
+      roles: [UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.USER]
     },
     children: [
       {
@@ -84,7 +84,7 @@ export const appRoutes: Route[] = [
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     data: {
-        roles: [UserRole.SUPER_ADMIN, UserRole.ADMIN],
+        roles: [UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.USER],
         type: UserTypes.DOCTOR
     },
     component: LayoutComponent,
@@ -93,6 +93,7 @@ export const appRoutes: Route[] = [
     },
     children: [
       {path: 'doctors', loadChildren: () => import('app/modules/admin/doctor/doctor.module').then(m => m.DoctorModule)},
+      {path: 'appointments', loadChildren: () => import('app/modules/user/appointments/appointments.module').then(m => m.AppointmentsModule)},
     ]
   },
   {

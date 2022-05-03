@@ -88,14 +88,26 @@ export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDes
     const nameRegex = new RegExp(`.*${this.doctorName?.trim().toLowerCase() || ''}.*`, 'gm');
     const surnameRegex = new RegExp(`.*${this.doctorSurname?.trim().toLowerCase() || ''}.*`, 'gm');
     const emailRegex = new RegExp(`.*${this.doctorEmail?.trim().toLowerCase() || ''}.*`, 'gm');
-    this.dataSource.data = this.doctorData.filter(item =>
-        this.doctorName ? nameRegex.exec(item.first_name.toLowerCase()) :
-            this.doctorSurname ? surnameRegex.exec(item.last_name.toLowerCase()) :
-                this.doctorEmail ? emailRegex.exec(item.email.toLowerCase()) : null);
+    let data = [...this.doctorData];
+    console.log(this.doctorData);
+    console.log(nameRegex)
+    if (this.doctorName) {
+      data = data.filter(item => nameRegex.test(item.first_name.toLowerCase()));
+    }
+    if (this.doctorSurname) {
+      data = data.filter(item => surnameRegex.test(item.last_name.toLowerCase()));
+    }
+    if (this.doctorEmail) {
+      data = data.filter(item => emailRegex.test(item.email.toLowerCase()));
+    }
+    this.dataSource.data = data;
   }
 
   reset() {
     this.dataSource.data = this.doctorData;
+    this.doctorName = '';
+    this.doctorSurname = '';
+    this.doctorEmail = '';
   }
 
   addDoctor() {
