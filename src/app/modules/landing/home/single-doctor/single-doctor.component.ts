@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {IUser} from "../../../../models/user.model";
 import {AuthService} from "../../../../core/auth/auth.service";
 import {User, UserTypes} from "../../../../core/user/user.types";
 import {AppointmentsService} from "../../../../service/appointments.service";
@@ -18,7 +17,7 @@ export class SingleDoctorComponent implements OnInit {
   private user: User;
 
   constructor(
-      @Inject(MAT_DIALOG_DATA) public data: IUser,
+      @Inject(MAT_DIALOG_DATA) public data: User,
       public dialogRef: MatDialogRef<SingleDoctorComponent>,
       private _authService: AuthService,
       private _userService: UserService,

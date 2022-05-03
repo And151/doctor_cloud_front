@@ -9,6 +9,7 @@ export class NavigationService {
     private _navigation: Navigation = {
         default: [
             {
+                roleId: [UserRole.ADMIN, UserRole.SUPER_ADMIN],
                 icon: "heroicons_outline:view-grid",
                 id: "overview",
                 link: "/overview",

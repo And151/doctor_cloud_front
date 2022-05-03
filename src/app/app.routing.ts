@@ -4,6 +4,7 @@ import {NoAuthGuard} from 'app/core/auth/guards/noAuth.guard';
 import {LayoutComponent} from 'app/layout/layout.component';
 import {InitialDataResolver} from 'app/app.resolvers';
 import {UserRole, UserTypes} from "./core/user/user.types";
+import {HomeDataResolver} from "./HomeDataResolver";
 
 export const appRoutes: Route[] = [
 
@@ -13,6 +14,9 @@ export const appRoutes: Route[] = [
     component: LayoutComponent,
     data: {
       layout: 'empty'
+    },
+    resolve: {
+      initialData: HomeDataResolver
     },
     children: [
       {path: '', loadChildren: () => import('app/modules/landing/home/home.module').then(m => m.LandingHomeModule)},
@@ -59,7 +63,8 @@ export const appRoutes: Route[] = [
     canActivateChild: [AuthGuard],
     component: LayoutComponent,
     data: {
-      layout: 'empty'
+      layout: 'empty',
+      roles: [UserRole.SUPER_ADMIN, UserRole.ADMIN]
     },
     children: [
       {
@@ -78,7 +83,10 @@ export const appRoutes: Route[] = [
     path: '',
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
-    data: {roles: [UserRole.SUPER_ADMIN, UserRole.ADMIN]},
+    data: {
+        roles: [UserRole.SUPER_ADMIN, UserRole.ADMIN],
+        type: UserTypes.DOCTOR
+    },
     component: LayoutComponent,
     resolve: {
       initialData: InitialDataResolver,
@@ -89,9 +97,12 @@ export const appRoutes: Route[] = [
   },
   {
     path: '',
-    canActivate: [],
-    canActivateChild: [],
-    data: {roles: [UserRole.SUPER_ADMIN]},
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    data: {
+      roles: [UserRole.SUPER_ADMIN],
+      type: UserTypes.DOCTOR
+    },
     component: LayoutComponent,
     resolve: {
       initialData: InitialDataResolver,
@@ -111,7 +122,10 @@ export const appRoutes: Route[] = [
     path: '',
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
-    data: {roles: [UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN]},
+    data: {
+      roles: [UserRole.ADMIN, UserRole.SUPER_ADMIN],
+      type: UserTypes.DOCTOR
+    },
     component: LayoutComponent,
     resolve: {
       initialData: InitialDataResolver,
@@ -120,11 +134,7 @@ export const appRoutes: Route[] = [
       {
         path: 'overview',
         loadChildren: () => import('app/modules/user/overview/overview.module').then(m => m.OverviewModule)
-      },
-      {
-        path: 'appointments',
-        loadChildren: () => import('app/modules/user/apppointments/apppointments.module').then(m => m.ApppointmentsModule)
-      },
+      }
     ]
   },
 

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy
 import { Router } from '@angular/router';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import {User, UserRole, UserTypes} from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
 
@@ -20,7 +19,7 @@ export class UserComponent implements OnInit, OnDestroy
     /* eslint-enable @typescript-eslint/naming-convention */
 
     @Input() showAvatar: boolean = true;
-    user: User  = {id: 2, first_name: "inesa", last_name: "Toroyan", roleId: UserRole.SUPER_ADMIN, type: UserTypes.DOCTOR, email: "inesa@gmail.com", phone: "23456"};
+    user: User;
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -33,6 +32,7 @@ export class UserComponent implements OnInit, OnDestroy
         private _userService: UserService
     )
     {
+        this.user = this._userService.user;
     }
 
     // -----------------------------------------------------------------------------------------------------

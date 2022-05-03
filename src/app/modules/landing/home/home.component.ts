@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, ViewEncapsulation} from '@angular/core';
 import {AuthService} from "../../../core/auth/auth.service";
 import {Observable} from "rxjs";
-import {UserRole} from "../../../core/user/user.types";
+import {User, UserRole} from "../../../core/user/user.types";
+import {UserService} from "../../../core/user/user.service";
 
 @Component({
   selector: 'landing-home',
@@ -10,13 +11,16 @@ import {UserRole} from "../../../core/user/user.types";
   encapsulation: ViewEncapsulation.None
 })
 export class LandingHomeComponent implements AfterViewInit {
-  isAuthenticated$: Observable<{ allowed: boolean; roleId?: UserRole }>;
+  isAuthenticated = false;
   userRoles = UserRole;
+  user: User;
 
   constructor(
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _userService: UserService
   ) {
-    this.isAuthenticated$ = _authService.check();
+    this.isAuthenticated = _authService.isAuthenticated;
+    this.user = _userService.user;
   }
 
   ngAfterViewInit() {

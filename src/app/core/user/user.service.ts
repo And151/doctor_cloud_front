@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import {BehaviorSubject, Observable, of, ReplaySubject} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
 import { User } from 'app/core/user/user.types';
 import {Location} from "@angular/common";
 import {environment} from "../../../environments/environment";
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
+import {FuseSplashScreenService} from "../../../@fuse/services/splash-screen";
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +18,10 @@ export class UserService
     /**
      * Constructor
      */
-    constructor(private _httpClient: HttpClient)
+    constructor(
+        private _httpClient: HttpClient,
+        private _splashService: FuseSplashScreenService
+    )
     {
     }
 
@@ -74,4 +79,19 @@ export class UserService
             })
         );
     }
+
+   /* resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> | Promise<User> | User {
+        this._splashService.show();
+        let temp = localStorage.getItem("accessToken");
+        if(temp) {
+            return this.get().pipe(
+                tap(_ => this._splashService.hide()),
+                catchError(_ => {
+                    this._splashService.hide()
+                    return of(null);
+                })
+            );
+        }
+
+    }*/
 }

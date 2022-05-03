@@ -1,11 +1,19 @@
+import {IHospital} from "../../models/hospitals.model";
+
 export interface User {
   id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  type: UserTypes;
-  roleId: IUserRoles;
+  first_name: string,
+  last_name: string,
+  image_url: string,
+  email: string,
+  phone: string,
+  type: UserTypes,
+  profession: string,
+  experience: number,
+  createdAt: string,
+  updatedAt: string,
+  roleId: UserRole,
+  hospital?: IHospital[];
 }
 
 

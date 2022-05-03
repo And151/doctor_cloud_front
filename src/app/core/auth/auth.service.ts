@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
-import {catchError, switchMap} from 'rxjs/operators';
+import {catchError, switchMap, tap} from 'rxjs/operators';
 import {AuthUtils} from 'app/core/auth/auth.utils';
 import {UserService} from 'app/core/user/user.service';
 import {Location} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import {IUserRoles, User, UserRole, UserTypes} from "../user/user.types";
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
 
 @Injectable()
 export class AuthService {
@@ -44,6 +45,13 @@ export class AuthService {
      */
     get isAuthenticated(): boolean {
         return this._authenticated;
+    }
+
+    /**
+     * Getter for authenticated boolean
+     */
+    set isAuthenticated(data: boolean) {
+        this._authenticated = data;
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -126,7 +134,6 @@ export class AuthService {
                 })
             ),
             switchMap((response: any) => {
-
                 // Store the access token in the local storage
                 this.accessToken = response.accessToken;
 
@@ -134,7 +141,9 @@ export class AuthService {
                 this._authenticated = true;
 
                 // Set the role id
-                this._roleId = response.user._roleId;
+                this._roleId = response.user.roleId;
+
+                this._userType = response.user.type;
 
                 // Store the user on the user service
                 this._userService.user = response.user;
@@ -208,14 +217,16 @@ export class AuthService {
         // Check the access token availability
         if (!this.accessToken) {
             return of({
-                allowed: false
+                allowed: false,
+                roleId: this._roleId
             });
         }
 
         // Check the access token expire date
         if (AuthUtils.isTokenExpired(this.accessToken)) {
             return of({
-                allowed: false
+                allowed: false,
+                roleId: this._roleId
             });
         }
 

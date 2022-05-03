@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {DoctorService} from "../../../../service/doctor.service";
-import {IUser} from "../../../../models/user.model";
 import {MatDialog} from "@angular/material/dialog";
 import {SingleDoctorComponent} from "../single-doctor/single-doctor.component";
 import {Router} from "@angular/router";
+import {User} from "../../../../core/user/user.types";
 
 @Component({
   selector: 'app-doctors-grid',
@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./doctors-grid.component.scss']
 })
 export class DoctorsGridComponent implements OnInit {
-  doctors: IUser[];
+  doctors: User[];
 
   constructor(
       private _doctorService: DoctorService,
@@ -29,7 +29,7 @@ export class DoctorsGridComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  seeDoctorInfo(doctor: IUser) {
+  seeDoctorInfo(doctor: User) {
     this._dialog.open(SingleDoctorComponent, {
       maxWidth: '650px',
       width: '100%',

@@ -3,12 +3,11 @@ import {FormBuilder} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {IHospital} from "../../../../models/hospitals.model";
-import {IUser} from "../../../../models/user.model";
 import {MatListOption} from "@angular/material/list";
 import {DoctorService} from "../../../../service/doctor.service";
 import {ConfirmDialogComponent} from "../../../../shared/confirm-dialog/confirm-dialog.component";
 import {AttachHospitalComponent} from "../attach-hospital/attach-hospital.component";
-import {data} from "autoprefixer";
+import {User} from "../../../../core/user/user.types";
 
 @Component({
   selector: 'app-edit-doctor-hospitals',
@@ -22,7 +21,7 @@ export class EditDoctorHospitalsComponent implements OnInit {
   constructor(
       private _form: FormBuilder,
       public dialogRef: MatDialogRef<EditDoctorHospitalsComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: IUser,
+      @Inject(MAT_DIALOG_DATA) public data: User,
       private _fb: FormBuilder,
       private _snackBar: MatSnackBar,
       private _doctorService: DoctorService,

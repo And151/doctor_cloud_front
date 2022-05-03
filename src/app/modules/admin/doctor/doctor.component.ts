@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {IUser} from "../../../models/user.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {ActivatedRoute} from "@angular/router";
@@ -15,6 +14,7 @@ import {
   EditDoctorHospitalsComponent
 } from "../../superadmin/hospital/edit-doctor-hospitals/edit-doctor-hospitals.component";
 import {HospitalsService} from "../../../service/hospitals.service";
+import {User} from "../../../core/user/user.types";
 
 @Component({
   selector: 'app-doctor',
@@ -23,11 +23,11 @@ import {HospitalsService} from "../../../service/hospitals.service";
 })
 export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDestroy{
   displayedColumns: string[] = ["id", "first_name", "last_name", "email", "phone", "type", "roleId", "createdAt", "updatedAt", "actions"];
-  dataSource: MatTableDataSource<IUser> = new MatTableDataSource<IUser>();
+  dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   doctorName: string;
   doctorSurname: string;
   doctorEmail: string;
-  doctorData: IUser[]=[];
+  doctorData: User[]=[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private doctorSubscription: Subscription;
