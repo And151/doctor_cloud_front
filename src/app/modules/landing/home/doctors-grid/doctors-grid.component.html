@@ -3,7 +3,7 @@
 
     <main>
         <figure *ngFor="let doctor of doctors" (click)="seeDoctorInfo(doctor)"
-                [style.background-image]="doctor.image_url">
+                [style.background-image]="'url(' + doctor.imageUrl + ')'">
             <figcaption>{{doctor.first_name}} {{doctor.last_name}}
                 <!--        <h3>{{hospital.name}}</h3>-->
                 <!--        <h5>{{hospital.address}}</h5>-->

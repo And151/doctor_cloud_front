@@ -22,7 +22,7 @@ import {User} from "../../../core/user/user.types";
   styleUrls: ['./doctor.component.scss']
 })
 export class DoctorComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
-  displayedColumns: string[] = ["id", "first_name", "last_name", "email", "phone", "type", "roleId", "createdAt", "updatedAt", "actions"];
+  displayedColumns: string[] = ["id", "first_name", "last_name", "email", "phone", "createdAt", "updatedAt", "actions"];
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   doctorName: string;
   doctorSurname: string;

@@ -1,11 +1,10 @@
 <div class="flex w-full gap-6">
     <div class="doctor-info flex flex-col text-center gap-4 w-60 items-center">
-        <img src="assets/images/avatars/brian-hughes.jpg" class="doctor-image">
+        <img [src]="data.imageUrl" class="doctor-image">
         <div class="flex flex-col gap-3">
-            <p class="font-medium text-xl">{{data.first_name + data.last_name}}</p>
+            <p class="font-medium text-xl">{{data.first_name}} {{data.last_name}}</p>
             <p class="">{{data.profession}}</p>
             <p>{{data.experience}} years of experience</p>
-
         </div>
     </div>
     <mat-divider [vertical]="true"></mat-divider>
