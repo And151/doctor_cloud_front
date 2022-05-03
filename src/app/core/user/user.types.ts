@@ -2,17 +2,18 @@ import {IHospital} from "../../models/hospitals.model";
 
 export interface User {
   id: number;
-  first_name: string,
-  last_name: string,
-  image_url: string,
-  email: string,
-  phone: string,
-  type: UserTypes,
-  profession: string,
-  experience: number,
-  createdAt: string,
-  updatedAt: string,
-  roleId: UserRole,
+  first_name: string;
+  last_name: string;
+  image_url: string;
+  email: string;
+  phone: string;
+  type: UserTypes;
+  profession: string;
+  experience: number;
+  imageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  roleId: UserRole;
   hospital?: IHospital[];
 }
 

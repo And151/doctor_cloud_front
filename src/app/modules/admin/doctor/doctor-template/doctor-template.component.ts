@@ -11,14 +11,17 @@ import {MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./doctor-template.component.scss']
 })
 export class DoctorTemplateComponent implements OnInit {
+  @Output()
+  onChange = new EventEmitter();
+  @Input()
+  type: string = 'Create';
 
-  @Output() onChange  = new EventEmitter();
-  @Input() type: string;
   constructor(
-      private _doctorService: DoctorService,
-      private _form: FormBuilder,
-      private _snack: MatSnackBar,
-  ) { }
+    private _doctorService: DoctorService,
+    private _form: FormBuilder,
+    private _snack: MatSnackBar,
+  ) {
+  }
 
   newDoctor = this._form.group({
     first_name: [""],
@@ -26,10 +29,11 @@ export class DoctorTemplateComponent implements OnInit {
     email: [""],
     phone: [""],
     password: ["", Validators.min(8)],
+    imageUrl: [""],
     type: UserTypes.DOCTOR,
     roleId: UserRole.USER
-
   })
+
   ngOnInit(): void {
   }
 

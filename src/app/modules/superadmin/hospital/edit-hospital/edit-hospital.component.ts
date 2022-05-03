@@ -14,7 +14,8 @@ export class EditHospitalComponent implements OnInit {
     name: [""],
     address: [""],
     latitude: [null],
-    longitude: [null]
+    longitude: [null],
+    imageUrl: [""]
   })
   constructor(
       private _form: FormBuilder,

@@ -21,26 +21,25 @@ import {User} from "../../../core/user/user.types";
   templateUrl: './doctor.component.html',
   styleUrls: ['./doctor.component.scss']
 })
-export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDestroy{
+export class DoctorComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ["id", "first_name", "last_name", "email", "phone", "type", "roleId", "createdAt", "updatedAt", "actions"];
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   doctorName: string;
   doctorSurname: string;
   doctorEmail: string;
-  doctorData: User[]=[];
+  doctorData: User[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private doctorSubscription: Subscription;
 
   constructor(
-      private route: ActivatedRoute,
-      private _doctorService: DoctorService,
-      private _dialog: MatDialog,
-      private _splashScreenService: FuseSplashScreenService,
-      private _hospitalService: HospitalsService
-
-  ) { }
-
+    private route: ActivatedRoute,
+    private _doctorService: DoctorService,
+    private _dialog: MatDialog,
+    private _splashScreenService: FuseSplashScreenService,
+    private _hospitalService: HospitalsService
+  ) {
+  }
 
 
   ngOnInit(): void {
@@ -115,25 +114,25 @@ export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDes
     })
   }
 
-    edit(id) {
-      this._dialog.open(EditHospitalComponent, {
-        maxWidth: '650px',
-        width: '100%',
-        data: this.dataSource.data.find(item => item.id === id)
-      })
-          .afterClosed()
-          .subscribe(
-              res => {
-                if (res?.success) {
-                 /* this._splashScreenService.show();
-                  this._doctorService.edi(id, res.data).subscribe(_ => {
-                    this._doctorService.getHospitals().subscribe();
-                    this._splashScreenService.hide();
-                  });*/
-                }
-              }
-          )
-    }
+  edit(id) {
+    this._dialog.open(EditHospitalComponent, {
+      maxWidth: '650px',
+      width: '100%',
+      data: this.dataSource.data.find(item => item.id === id)
+    })
+      .afterClosed()
+      .subscribe(
+        res => {
+          if (res?.success) {
+            /* this._splashScreenService.show();
+             this._doctorService.edi(id, res.data).subscribe(_ => {
+               this._doctorService.getHospitals().subscribe();
+               this._splashScreenService.hide();
+             });*/
+          }
+        }
+      )
+  }
 
   delete(id) {
     this._dialog.open(ConfirmDialogComponent, {
@@ -145,18 +144,18 @@ export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDes
         yesButton: 'Yes'
       }
     })
-        .afterClosed()
-        .subscribe(
-            confirmed => {
-              if (confirmed) {
-                this._splashScreenService.show();
-                this._doctorService.deleteDoctor(id).subscribe(_ => {
-                  this._doctorService.getDoctors().subscribe();
-                  this._splashScreenService.hide();
-                });
-              }
-            }
-        )
+      .afterClosed()
+      .subscribe(
+        confirmed => {
+          if (confirmed) {
+            this._splashScreenService.show();
+            this._doctorService.deleteDoctor(id).subscribe(_ => {
+              this._doctorService.getDoctors().subscribe();
+              this._splashScreenService.hide();
+            });
+          }
+        }
+      )
   }
 
   modifyHospitals(id) {
@@ -165,24 +164,24 @@ export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDes
       width: '100%',
       data: this.dataSource.data.find(item => item.id === id)
     })
-        .afterClosed()
-        .subscribe(
-            res => {
-              if (res?.remove) {
-                 this._splashScreenService.show();
-                 this._doctorService.removeDoctorFromHospitals(id, res.remove).subscribe(_ => {
-                   this._doctorService.getDoctors().subscribe();
-                   this._splashScreenService.hide();
-                 });
-              }
-              if(res?.attach) {
-                this._splashScreenService.show();
-                this._hospitalService.attachHospital(id, res.attach).subscribe(_ => {
-                  this._doctorService.getDoctors().subscribe();
-                  this._splashScreenService.hide();
-                })
-              }
-            }
-        )
+      .afterClosed()
+      .subscribe(
+        res => {
+          if (res?.remove) {
+            this._splashScreenService.show();
+            this._doctorService.removeDoctorFromHospitals(id, res.remove).subscribe(_ => {
+              this._doctorService.getDoctors().subscribe();
+              this._splashScreenService.hide();
+            });
+          }
+          if (res?.attach) {
+            this._splashScreenService.show();
+            this._hospitalService.attachHospital(id, res.attach).subscribe(_ => {
+              this._doctorService.getDoctors().subscribe();
+              this._splashScreenService.hide();
+            })
+          }
+        }
+      )
   }
 }
