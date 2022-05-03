@@ -10,11 +10,18 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatInputModule} from "@angular/material/input";
+import { AddDoctorComponent } from './add-doctor/add-doctor.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import { DoctorTemplateComponent } from './doctor-template/doctor-template.component';
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 
 
 @NgModule({
     declarations: [
-        DoctorComponent
+        DoctorComponent,
+        AddDoctorComponent,
+        DoctorTemplateComponent
     ],
     imports: [
         CommonModule,
@@ -25,8 +32,17 @@ import {MatInputModule} from "@angular/material/input";
         MatDividerModule,
         MatTableModule,
         MatPaginatorModule,
-        MatInputModule
-    ]
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDialogModule
+    ],
+    providers: [
+        {
+            provide: MatDialogRef,
+            useValue: {}
+        },
+    ],
 })
 export class DoctorModule {
 }

@@ -66,7 +66,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
                 this.user = user;
             });
 
-        console.log(this.user)
         this.navigation = this._navigationService.getNavigation(UserTypes.DOCTOR, UserRole.SUPER_ADMIN);
 
         // Subscribe to media changes

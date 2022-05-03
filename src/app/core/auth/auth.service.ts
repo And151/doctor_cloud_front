@@ -91,6 +91,8 @@ export class AuthService {
                 // Set the role id
                 this.roleId = response.user.roleId;
 
+                this.userType = response.user.type;
+
                 // Store the user on the user service
                 this._userService.user = response.user;
 
@@ -132,7 +134,8 @@ export class AuthService {
 
                 // Return true
                 return of({
-                    allowed: true
+                    allowed: true,
+                    roleId: this.roleId
                 });
             })
         );
@@ -190,7 +193,8 @@ export class AuthService {
                 });
             }
             return of({
-                allowed: true
+                allowed: true,
+                roleId: this.roleId
             });
         }
 

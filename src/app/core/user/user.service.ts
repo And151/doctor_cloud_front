@@ -49,7 +49,6 @@ export class UserService
      */
     get(): Observable<User>
     {
-        console.log(123)
         const url = Location.joinWithSlash(environment.origin || '', 'user/current');
         return this._httpClient.get<User>(url).pipe(
             tap((user) => {

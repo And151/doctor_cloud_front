@@ -15,6 +15,8 @@ import {UniversityResolver} from "./university.resolver";
 import { UniversityModalComponent } from './university-modal/university-modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 @NgModule({
@@ -22,19 +24,21 @@ import {MatButtonModule} from "@angular/material/button";
     UniversityComponent,
     UniversityModalComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(UniversityRouting),
-    MatFormFieldModule,
-    FormsModule,
-    SharedModule,
-    MatDividerModule,
-    MatTableModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    MatButtonModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(UniversityRouting),
+        MatFormFieldModule,
+        FormsModule,
+        SharedModule,
+        MatDividerModule,
+        MatTableModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatProgressBarModule
+    ],
   providers: [
     UniversityService,
     UniversityResolver

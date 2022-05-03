@@ -83,8 +83,6 @@ export class NavigationService {
             if (!userType || !type) return true;
             if (type) return type === userType;
         }
-        console.log(userType, roleId)
-        console.log({default: this._navigation.default.filter(item => roleIdCheck(item.roleId) && typeCheck(item.userType))})
         return {default: this._navigation.default.filter(item => roleIdCheck(item.roleId) && typeCheck(item.userType))};
     }
 }

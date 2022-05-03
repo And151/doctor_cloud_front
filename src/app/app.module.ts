@@ -13,6 +13,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -23,26 +24,27 @@ const routerConfig: ExtraOptions = {
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes, routerConfig),
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        RouterModule.forRoot(appRoutes, routerConfig),
 
-    // Fuse, FuseConfig & FuseMockAPI
-    FuseModule,
-    FuseConfigModule.forRoot(appConfig),
-    FuseMockApiModule.forRoot(mockApiServices),
+        // Fuse, FuseConfig & FuseMockAPI
+        FuseModule,
+        FuseConfigModule.forRoot(appConfig),
+        FuseMockApiModule.forRoot(mockApiServices),
 
-    // Core module of your application
-    CoreModule,
+        // Core module of your application
+        CoreModule,
 
-    MatSnackBarModule,
-    // Layout module of your application
-    LayoutModule,
+        MatSnackBarModule,
+        // Layout module of your application
+        LayoutModule,
 
-    // 3rd party modules that require global configuration via forRoot
-    MarkdownModule.forRoot({})
-  ],
+        // 3rd party modules that require global configuration via forRoot
+        MarkdownModule.forRoot({}),
+        MatProgressBarModule
+    ],
   bootstrap: [
     AppComponent
   ]

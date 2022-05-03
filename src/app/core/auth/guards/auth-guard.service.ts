@@ -75,6 +75,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad
 
     /**
      * Check the authenticated status
+     * Check the authenticated status
      *
      * @param redirectURL
      * @param roles
@@ -87,12 +88,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad
         return this._authService.check(roles, type)
                    .pipe(
                        switchMap((data) => {
-                           console.log(data)
                            // If the user is not authenticated...
                            if ( !data.allowed )
                            {
                                if (!data.roleId) {
-                                   console.log(12345678)
                                    // Redirect to the sign-in page
                                    this._router.navigate(['sign-in'], {queryParams: {redirectURL}});
                                } else if (data.roleId === UserRole.ADMIN) {

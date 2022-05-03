@@ -8,9 +8,17 @@
                 <span class="name">Doctor Cloud</span>
             </article>
             <article id="reference">
-                <a *ngIf="(isAuthenticated$ | async).allowed; else signIn" [routerLink]="'overview'" rel="noopener">
-                    <button mat-stroked-button>Admin</button>
-                </a>
+                <div *ngIf="(isAuthenticated$ | async)?.allowed; else signIn">
+                    <a *ngIf="(isAuthenticated$ | async)?.roleId !== userRoles.USER; else signOut"
+                       [routerLink]="'overview'" rel="noopener">
+                        <button mat-stroked-button>Admin</button>
+                    </a>
+                    <ng-template #signOut>
+                        <a routerLink="sign-out">
+                            <button mat-stroked-button>Sign Out</button>
+                        </a>
+                    </ng-template>
+                </div>
                 <ng-template #signIn>
                     <a [routerLink]="'sign-in'" rel="noopener">
                         <button mat-stroked-button>Sign In</button>
@@ -21,7 +29,7 @@
     </header>
     <section id="folders">
         <article routerLink="hospital">Hospitals</article>
-        <article>Doctors</article>
+        <article routerLink="all-doctors">Doctors</article>
     </section>
     <router-outlet></router-outlet>
     <footer></footer>
