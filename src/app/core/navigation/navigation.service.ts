@@ -45,14 +45,6 @@ export class NavigationService {
                 link: "/university",
                 title: "University",
                 type: "basic",
-            },
-            {
-                userType: UserTypes.DOCTOR,
-                icon: "heroicons_outline:identification",
-                id: "patients",
-                link: "/patients",
-                title: "Patients",
-                type: "basic",
             }
         ]
     }

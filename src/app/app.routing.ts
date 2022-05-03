@@ -111,22 +111,6 @@ export const appRoutes: Route[] = [
     path: '',
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
-    data: {roles: [UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN], type: UserTypes.DOCTOR},
-    component: LayoutComponent,
-    resolve: {
-      initialData: InitialDataResolver,
-    },
-    children: [
-      {
-        path: 'patients',
-        loadChildren: () => import('app/modules/user/patients/patients.module').then(m => m.PatientsModule)
-      },
-    ]
-  },
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
     data: {roles: [UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN]},
     component: LayoutComponent,
     resolve: {

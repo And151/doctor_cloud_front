@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AnalyticsService} from "../../../../service/analytics.service";
 import {Istats} from "../../../../models/analytics.model";
+import {UserService} from "../../../../core/user/user.service";
+import {UserRole} from "../../../../core/user/user.types";
 
 @Component({
     selector: 'app-overview',
@@ -19,13 +21,18 @@ export class OverviewComponent implements OnInit {
         {name: "Inesa", last_name: "Toroyan", gender: "Female", created_at: "April 29,2022"},
     ];
 
-    constructor(private _analyticsService: AnalyticsService) {
+    constructor(
+        private _userService: UserService,
+        private _analyticsService: AnalyticsService
+    ) {
     }
 
     ngOnInit(): void {
-        this._analyticsService.getStats().subscribe(data => {
-            this.stats = data;
-        });
+       if(this._userService.user.roleId === UserRole.SUPER_ADMIN) {
+           this._analyticsService.getStats().subscribe(data => {
+               this.stats = data;
+           });
+       }
     }
 
 }
