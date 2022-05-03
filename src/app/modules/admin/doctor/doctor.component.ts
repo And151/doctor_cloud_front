@@ -89,8 +89,6 @@ export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDes
     const surnameRegex = new RegExp(`.*${this.doctorSurname?.trim().toLowerCase() || ''}.*`, 'gm');
     const emailRegex = new RegExp(`.*${this.doctorEmail?.trim().toLowerCase() || ''}.*`, 'gm');
     let data = [...this.doctorData];
-    console.log(this.doctorData);
-    console.log(nameRegex)
     if (this.doctorName) {
       data = data.filter(item => nameRegex.test(item.first_name.toLowerCase()));
     }

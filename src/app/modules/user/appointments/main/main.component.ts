@@ -37,7 +37,7 @@ export class MainComponent implements OnInit {
         this.dataSource.data.find(item => item.id === id).is_approved = true;
       },
       _ => {
-        this._snackBar.open('Something went wrong', 'ok', {duration: 3000});
+        this._snackBar.open('Something went wrong', 'ok', {duration: 3000, panelClass: 'success-bar'});
       }
     )
   }

@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AuthService} from "../../../../core/auth/auth.service";
 import {User, UserTypes} from "../../../../core/user/user.types";
@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
   templateUrl: './single-doctor.component.html',
   styleUrls: ['./single-doctor.component.scss']
 })
-export class SingleDoctorComponent implements OnInit {
+export class SingleDoctorComponent {
   appointment: Date;
   private user: User;
 
@@ -31,14 +31,7 @@ export class SingleDoctorComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    console.log(this.appointment)
-    console.log(this._userService.user)
-  }
-
   proposeTime() {
-    console.log(12345)
-    console.log(this._authService.isAuthenticated)
     if(!this._authService.isAuthenticated) {
       this.dialogRef.close();
       this._router.navigateByUrl("sign-in");

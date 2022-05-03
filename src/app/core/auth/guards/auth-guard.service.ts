@@ -43,9 +43,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean
     {
         const redirectUrl = state.url === '/sign-out' ? '/' : state.url;
-        return this._check(redirectUrl, route.data.roles, route.data.type).pipe(
-            tap(item => console.log(item))
-        );
+        return this._check(redirectUrl, route.data.roles, route.data.type);
     }
 
     /**
