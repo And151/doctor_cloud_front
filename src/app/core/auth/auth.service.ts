@@ -157,8 +157,9 @@ export class AuthService {
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; company: string }): Observable<any> {
-        return this._httpClient.post('api/auth/sign-up', user);
+    signUp(user: { first_name: string; last_name: string; email: string; password: string; phone: string }): Observable<any> {
+        const url = Location.joinWithSlash(environment.origin, 'user/register');
+        return this._httpClient.post(url, user);
     }
 
     /**
