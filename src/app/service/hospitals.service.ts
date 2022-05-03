@@ -56,4 +56,16 @@ export class HospitalsService {
     )
     return this.http.delete(url);
   }
+
+  attachHospital(doctor, hospital) {
+    const url = Location.joinWithSlash(
+        environment.origin || '', `/hospital-doctors`
+    )
+    const data = {
+      hospitalId: hospital,
+      userId: doctor
+    }
+    return this.http.post(url,data);
+
+  }
 }

@@ -23,7 +23,6 @@ export class HospitalComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   displayedColumns: string[] = ["id", "name", "address", "longitude", "latitude", "createdAt", "updatedAt", "actions"];
   hospitalName: string;
   hospitalAddress: string;
-  hospitalOwner: string;
   dataSource: MatTableDataSource<IHospital> = new MatTableDataSource<IHospital>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,7 +41,6 @@ export class HospitalComponent implements OnInit, OnChanges, AfterViewInit, OnDe
       data => {
         this.hospitalData = data;
         this.dataSource.data = this.hospitalData;
-        console.log(this.dataSource.data);
       }
     );
   }
@@ -53,7 +51,6 @@ export class HospitalComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
     this.dataSource.data = changes.hospitalData.currentValue;
   }
 

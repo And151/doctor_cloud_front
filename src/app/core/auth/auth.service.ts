@@ -91,6 +91,8 @@ export class AuthService {
                 // Set the role id
                 this.roleId = response.user.roleId;
 
+                this.userType = response.user.type;
+
                 // Store the user on the user service
                 this._userService.user = response.user;
 
@@ -132,7 +134,8 @@ export class AuthService {
 
                 // Return true
                 return of({
-                    allowed: true
+                    allowed: true,
+                    roleId: this.roleId
                 });
             })
         );
@@ -157,8 +160,11 @@ export class AuthService {
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; company: string }): Observable<any> {
-        return this._httpClient.post('api/auth/sign-up', user);
+    signUp(user: { first_name: string; last_name: string; email: string; phone: string; password: string; }): Observable<any> {
+        const url = Location.joinWithSlash(
+            environment.origin || '', 'user/register'
+        )
+        return this._httpClient.post(url, user);
     }
 
     /**
@@ -174,6 +180,7 @@ export class AuthService {
      * Check the authentication status
      */
     check(roles?: IUserRoles[], type?: UserTypes): Observable<{ allowed: boolean; roleId?: UserRole }> {
+
         // Check if the user is logged in and is admin
         if (this._authenticated) {
             if (roles && roles.indexOf(this.roleId) === -1) {
@@ -183,13 +190,15 @@ export class AuthService {
                 });
             }
             if (type && type !== this.userType) {
+                console.log(this.userType)
                 return of({
                     allowed: false,
                     roleId: this.roleId
                 });
             }
             return of({
-                allowed: true
+                allowed: true,
+                roleId: this.roleId
             });
         }
 

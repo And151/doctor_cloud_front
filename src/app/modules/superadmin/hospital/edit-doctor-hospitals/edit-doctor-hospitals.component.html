@@ -1,12 +1,18 @@
-<h1 mat-dialog-title>{{data.first_name + " " + data.last_name}}'s Hospitals</h1>
-<mat-selection-list #hospitalsList>
-    <mat-list-option *ngFor="let hospital of hospitals" [value]="hospital.id">
-        {{hospital.name}}
-    </mat-list-option>
-</mat-selection-list>
+<div class="flex flex-col gap-2">
+    <div class="flex justify-between align-middle">
+        <h1 mat-dialog-title>{{data.first_name + " " + data.last_name}}'s Hospitals</h1>
+        <button mat-flat-button color="primary" (click)="attachHospitals()">Attach a new hospital</button>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-selection-list #hospitalsList>
+        <mat-list-option *ngFor="let hospital of hospitals" [value]="hospital.id">
+            {{hospital.name}}
+        </mat-list-option>
+    </mat-selection-list>
 
-<div class="flex gap-2">
-    <button mat-flat-button class="primary-outlined w-full">Cancel</button>
-    <button mat-flat-button class="primary-outlined w-full" (click)="removeHospitals(hospitalsList.selectedOptions.selected)">Remove hospitals</button>
-    <button mat-flat-button color="primary" class="w-full">Attach a hospital</button>
+    <div class="flex gap-2">
+        <button mat-flat-button class="primary-outlined w-full" (click)="cancel()">Cancel</button>
+        <button mat-flat-button class="primary-outlined w-full" (click)="removeHospitals(hospitalsList.selectedOptions.selected)">Remove hospitals</button>
+    </div>
+
 </div>

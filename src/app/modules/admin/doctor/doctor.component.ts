@@ -14,6 +14,7 @@ import {Subscription} from "rxjs";
 import {
   EditDoctorHospitalsComponent
 } from "../../superadmin/hospital/edit-doctor-hospitals/edit-doctor-hospitals.component";
+import {HospitalsService} from "../../../service/hospitals.service";
 
 @Component({
   selector: 'app-doctor',
@@ -35,7 +36,8 @@ export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDes
       private route: ActivatedRoute,
       private _doctorService: DoctorService,
       private _dialog: MatDialog,
-      private _splashScreenService: FuseSplashScreenService
+      private _splashScreenService: FuseSplashScreenService,
+      private _hospitalService: HospitalsService
 
   ) { }
 
@@ -156,12 +158,19 @@ export class DoctorComponent implements OnInit , OnChanges, AfterViewInit, OnDes
         .afterClosed()
         .subscribe(
             res => {
-              if (res?.success) {
-                /* this._splashScreenService.show();
-                 this._doctorService.edi(id, res.data).subscribe(_ => {
-                   this._doctorService.getHospitals().subscribe();
+              if (res?.remove) {
+                 this._splashScreenService.show();
+                 this._doctorService.removeDoctorFromHospitals(id, res.remove).subscribe(_ => {
+                   this._doctorService.getDoctors().subscribe();
                    this._splashScreenService.hide();
-                 });*/
+                 });
+              }
+              if(res?.attach) {
+                this._splashScreenService.show();
+                this._hospitalService.attachHospital(id, res.attach).subscribe(_ => {
+                  this._doctorService.getDoctors().subscribe();
+                  this._splashScreenService.hide();
+                })
               }
             }
         )

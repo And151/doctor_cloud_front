@@ -1,0 +1,11 @@
+<div class="modal flex justify-center gap-10 text-center" [style.background-color]="color">
+    <div class="flex flex-col justify-center w-50 icon-wrap items-end">
+        <div class="circle" [style.background-color]="circleColor">
+            <mat-icon class="icon-stat">{{icon}}</mat-icon>
+        </div>
+    </div>
+    <div class="flex flex-col justify-center text-center items-start w-full">
+        <p class="stat">{{value}}</p>
+        <p class="title">{{title}}</p>
+    </div>
+</div>

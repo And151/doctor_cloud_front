@@ -19,6 +19,8 @@ import { EditHospitalComponent } from './edit-hospital/edit-hospital.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { EditDoctorHospitalsComponent } from './edit-doctor-hospitals/edit-doctor-hospitals.component';
 import {MatListModule} from "@angular/material/list";
+import { AttachHospitalComponent } from './attach-hospital/attach-hospital.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 
@@ -27,7 +29,8 @@ import {MatListModule} from "@angular/material/list";
     HospitalComponent,
     AddHospitalComponent,
     EditHospitalComponent,
-    EditDoctorHospitalsComponent
+    EditDoctorHospitalsComponent,
+    AttachHospitalComponent
   ],
     imports: [
         CommonModule,
@@ -45,7 +48,8 @@ import {MatListModule} from "@angular/material/list";
         ReactiveFormsModule,
         SharedModule,
         MatDialogModule,
-        MatListModule
+        MatListModule,
+        MatSelectModule
     ],
     providers: [
         MatSnackBarModule

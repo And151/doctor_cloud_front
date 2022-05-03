@@ -1,0 +1,18 @@
+<div class="flex flex-col gap-5">
+    <div class="flex justify-between align-middle">
+        <h1 mat-dialog-title>All Hospitals</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-form-field appearance="fill">
+        <mat-select #hospitalsList placeholder="Select a Hospital">
+            <mat-option *ngFor="let hospital of hospitals" [value]="hospital.id">
+                {{hospital.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div class="flex gap-2 justify-end">
+        <button mat-flat-button class="primary-outlined w-full" (click)="cancel()">Cancel</button>
+        <button mat-flat-button color="primary" class="w-full" (click)="addHospitals(hospitalsList.value)">Attach</button>
+    </div>
+
+</div>

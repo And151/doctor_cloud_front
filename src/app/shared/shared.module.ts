@@ -6,6 +6,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { PanelComponent } from './panel/panel.component';
 
 @NgModule({
     imports: [
@@ -20,11 +21,13 @@ import {MatDialogModule} from "@angular/material/dialog";
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        SearchBoxComponent
+        SearchBoxComponent,
+        PanelComponent
     ],
     declarations: [
       SearchBoxComponent,
-      ConfirmDialogComponent
+      ConfirmDialogComponent,
+      PanelComponent
     ]
 })
 export class SharedModule

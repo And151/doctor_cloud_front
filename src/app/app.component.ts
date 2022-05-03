@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from "@angular/router";
+import {FuseSplashScreenService} from "../@fuse/services/splash-screen";
 
 @Component({
     selector   : 'app-root',
@@ -10,7 +12,27 @@ export class AppComponent
     /**
      * Constructor
      */
-    constructor()
+    constructor(router: Router,   private _splashScreenService: FuseSplashScreenService)
     {
+        router.events.forEach((event) => {
+            switch (true) {
+                case event instanceof NavigationStart: {
+                    this._splashScreenService.show();
+                    break;
+                }
+
+                case event instanceof NavigationEnd:
+                case event instanceof NavigationCancel:
+                case event instanceof NavigationError: {
+                    this._splashScreenService.hide();
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        })
     }
+
+
 }
