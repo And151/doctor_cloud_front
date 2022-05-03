@@ -3,6 +3,7 @@ import {DoctorService} from "../../../../service/doctor.service";
 import {IUser} from "../../../../models/user.model";
 import {MatDialog} from "@angular/material/dialog";
 import {SingleDoctorComponent} from "../single-doctor/single-doctor.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-doctors-grid',
@@ -14,7 +15,8 @@ export class DoctorsGridComponent implements OnInit {
 
   constructor(
       private _doctorService: DoctorService,
-      private _dialog: MatDialog
+      private _dialog: MatDialog,
+      private _router: Router
   ) {
     this.doctors = this._doctorService.doctors$.value;
     this._doctorService.doctors$.subscribe(
