@@ -2,7 +2,7 @@ export interface IHospital {
     id: number,
     name: string,
     address: string,
-    image_url: string,
+    imageUrl: string,
     longitude: string,
     latitude: string,
     createdAt: string,
