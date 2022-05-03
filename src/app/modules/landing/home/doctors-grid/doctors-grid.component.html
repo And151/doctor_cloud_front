@@ -1,5 +1,5 @@
 <main>
-    <figure *ngFor="let doctor of doctors"
+    <figure *ngFor="let doctor of doctors" (click)="seeDoctorInfo(doctor)"
             style="background-image: url(https://static.vecteezy.com/system/resources/previews/000/354/925/large_2x/vector-hospital-icon.jpg)">
         <figcaption>{{doctor.first_name}} {{doctor.last_name}}
             <!--        <h3>{{hospital.name}}</h3>-->

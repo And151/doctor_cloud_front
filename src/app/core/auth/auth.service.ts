@@ -11,8 +11,8 @@ import {IUserRoles, User, UserRole, UserTypes} from "../user/user.types";
 @Injectable()
 export class AuthService {
     private _authenticated: boolean = false;
-    private roleId: IUserRoles;
-    private userType: UserTypes;
+    private _roleId: IUserRoles;
+    private _userType: UserTypes;
 
 
     /**
@@ -49,6 +49,13 @@ export class AuthService {
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
+    get roleId(): IUserRoles {
+        return this._roleId;
+    }
+
+    get userType(): UserTypes {
+        return this._userType;
+    }
 
     /**
      * Forgot password
@@ -89,9 +96,9 @@ export class AuthService {
                 this._authenticated = true;
 
                 // Set the role id
-                this.roleId = response.user.roleId;
+                this._roleId = response.user.roleId;
 
-                this.userType = response.user.type;
+                this._userType = response.user.type;
 
                 // Store the user on the user service
                 this._userService.user = response.user;
@@ -127,7 +134,7 @@ export class AuthService {
                 this._authenticated = true;
 
                 // Set the role id
-                this.roleId = response.user.roleId;
+                this._roleId = response.user._roleId;
 
                 // Store the user on the user service
                 this._userService.user = response.user;
@@ -135,7 +142,7 @@ export class AuthService {
                 // Return true
                 return of({
                     allowed: true,
-                    roleId: this.roleId
+                    roleId: this._roleId
                 });
             })
         );
@@ -180,21 +187,21 @@ export class AuthService {
     check(roles?: IUserRoles[], type?: UserTypes): Observable<{ allowed: boolean; roleId?: UserRole }> {
         // Check if the user is logged in and is admin
         if (this._authenticated) {
-            if (roles && roles.indexOf(this.roleId) === -1) {
+            if (roles && roles.indexOf(this._roleId) === -1) {
                 return of({
                     allowed: false,
-                    roleId: this.roleId
+                    roleId: this._roleId
                 });
             }
-            if (type && type !== this.userType) {
+            if (type && type !== this._userType) {
                 return of({
                     allowed: false,
-                    roleId: this.roleId
+                    roleId: this._roleId
                 });
             }
             return of({
                 allowed: true,
-                roleId: this.roleId
+                roleId: this._roleId
             });
         }
 

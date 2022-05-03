@@ -4,6 +4,7 @@ import {HospitalsGridComponent} from "./hospitals-grid/hospitals-grid.component"
 import {HospitalResolver} from "../../superadmin/hospital/hospital.resolver";
 import {DoctorsResolver} from "./doctors-grid/doctors.resolver";
 import {DoctorsGridComponent} from "./doctors-grid/doctors-grid.component";
+import {SingleDoctorComponent} from "./single-doctor/single-doctor.component";
 
 export const landingHomeRoutes: Route[] = [
   {
