@@ -13,7 +13,7 @@ import {MatTableDataSource} from "@angular/material/table";
 export class OverviewComponent implements OnInit {
 
   stats: Istats;
-  displayedColumns = ["name", "last_name", "gender", "created_at", " "];
+  displayedColumns = ["name", "last_name", "email", "created_at", " "];
   dataSource = new MatTableDataSource<User>();
 
   constructor(
